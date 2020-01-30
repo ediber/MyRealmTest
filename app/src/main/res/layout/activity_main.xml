@@ -47,8 +47,36 @@
         android:id="@+id/puppies_example"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
         android:text="puppies_example"
-        tools:layout_editor_absoluteX="76dp"
-        tools:layout_editor_absoluteY="304dp" />
+        app:layout_constraintStart_toStartOf="@+id/write"
+        app:layout_constraintTop_toBottomOf="@+id/write" />
+
+    <Button
+        android:id="@+id/write_dogs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="write_dogs"
+        app:layout_constraintStart_toStartOf="@+id/puppies_example"
+        app:layout_constraintTop_toBottomOf="@+id/puppies_example" />
+
+    <Button
+        android:id="@+id/read_dogs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:text="read_dogs"
+        app:layout_constraintBottom_toBottomOf="@+id/write_dogs"
+        app:layout_constraintStart_toEndOf="@+id/write_dogs" />
+
+    <Button
+        android:id="@+id/delete_dog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="delete_dog"
+        app:layout_constraintStart_toStartOf="@+id/write_dogs"
+        app:layout_constraintTop_toBottomOf="@+id/write_dogs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

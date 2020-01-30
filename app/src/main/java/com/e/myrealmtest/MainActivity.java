@@ -5,10 +5,14 @@ import io.realm.OrderedCollectionChangeSet;
 import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 import android.os.Bundle;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -90,6 +94,47 @@ public class MainActivity extends AppCompatActivity {
                     public void onChange(RealmResults<Dog> results, OrderedCollectionChangeSet changeSet) {
                         // Query results are updated in real time with fine grained notifications.
                         changeSet.getInsertions(); // => [0] is added.
+                    }
+                });
+            }
+        });
+
+        findViewById(R.id.write_dogs).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+// Persist your data in a transaction
+                realm.beginTransaction();
+
+                String name = "Rex";
+                for (int i = 0; i < 6; i++) {
+                    name = name + i;
+                    Dog dog = new Dog();
+                    dog.setName(name);
+                    dog.setAge(1);
+
+                    managedDog = realm.copyToRealm(dog); // Persist unmanaged objects
+                }
+
+                realm.commitTransaction();
+            }
+        });
+
+        findViewById(R.id.read_dogs).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RealmResults<Dog> dogs = realm.where(Dog.class).findAll();
+            }
+        });
+
+        findViewById(R.id.delete_dog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        RealmResults<Dog> result = realm.where(Dog.class).equalTo("name","Rex01").findAll();
+                        result.deleteAllFromRealm();
                     }
                 });
             }
